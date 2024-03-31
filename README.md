@@ -8,3 +8,9 @@
 
 # Frontend
 html, css, js로 만든 웹문서로 구현한다.
+
+# Backend
+spring boot를 이용하여 java파일로 구현한다.
+
+# DataBase
+미정
