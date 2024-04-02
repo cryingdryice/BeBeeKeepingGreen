@@ -21,7 +21,7 @@ a {
 section{
     display: flex;
     width: 500px;
-    height: 400px;
+    height: 450px;
     padding: 30px;
 
     background-color: #fff;
@@ -38,14 +38,24 @@ section form{
 	width: 100%;
 }
 section form .login_txt{
-    width: 400px;
+    width: 100%;
 	text-align: center;
 	justify-content: center;
 	align-items: center;
-	padding: 30px;
+	padding: 10px;
 
     font-size: 30px;
     font-weight: bold;
+}
+section form .login_txt input{
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #4C3D3D;
+    border-radius: 4px;
+	font-size: large;
+	font-weight: bold;
 }
 section form .login_btn{
 	text-align: center;
