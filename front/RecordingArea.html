@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recording</title>
+    <link rel="stylesheet" href="css/RecordingAreaStyle.css">
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <h1><a href="HomeScreen.html">BeBee<br>KeepingGreen</a></h1>
+
+            <ul id="gnb">
+                <li><a href="LoginForm.html">Login</a></li>
+                <li><a href="RegisterForm.html">Register</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section>
+        <div class="inner">
+            <div id="input-container">
+                <div class="adding-btn" onclick="addInput()">+</div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        function addInput() {
+            const container = document.getElementById('input-container');
+            const div = document.createElement('div');
+            div.className = 'input-box';
+            const input = document.createElement('textarea');
+            div.appendChild(input);
+            const post_btn = document.createElement('button');
+            post_btn.textContent = "저장";
+            div.appendChild(post_btn);
+
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>
