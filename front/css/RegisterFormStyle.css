@@ -17,3 +17,66 @@ ol {
 a {
 	text-decoration: none;
 }
+
+section{
+    display: flex;
+    width: 500px;
+    height: 700px;
+    padding: 30px;
+
+    background-color: #fff;
+    margin: 50px auto;
+	margin-top: 100px;
+    box-shadow: 10px 10px 30px #4c3d3d73;
+    border-radius: 10px;
+    border-width: 10px;
+	border: solid;
+	border-color: #4C3D3D;
+}
+section form{
+	width: 100%;
+}
+section form .login_txt{
+    width: 100%;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+section form .login_txt input{
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #4C3D3D;
+    border-radius: 4px;
+	font-size: large;
+	font-weight: bold;
+}
+section form .login_btn{
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	padding: 30px;
+}
+section form .login_btn .login_btn_form{
+	width: 150px;
+    height: 50px;
+    background-color: #FFD95A;
+    border-radius: 10px;
+    border-width: 10px;
+	border: solid;
+	border-color: #4C3D3D;
+
+	color: #4C3D3D;
+	font-weight: bold;
+	font-size: large;
+}
+section form .alert-danger{
+	color: red;
+	font-weight: bold;
+	text-align: center;
+}

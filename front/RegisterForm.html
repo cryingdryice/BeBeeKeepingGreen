@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="css/RegisterFormStyle.css">
 </head>
 <body>
-    <div>
-        <div>
-            <h4>회원가입</h4>
-        </div>
-    </div>
-    <form>
-        <div></div>
-        <div>
-            <label for="username">사용자ID</label>
-            <input type="text" th:field="*{username}">
-        </div>
-        <div>
-            <label for="password1">비밀번호</label>
-            <input type="password" th:field="*{password1}">
-        </div>
-        <div>
-            <label for="password2">비밀번호 확인</label>
-            <input type="password" th:field="*{password2}">
-        </div>
-        <div>
-            <label for="email">이메일</label>
-            <input type="email" th:field="*{email}">
-        </div>
-        <button type="submit">회원가입</button>
-    </form>
+    <section>
+        <form>
+            <div class="login_txt">
+                <label for="username">사용자ID</label>
+                <input type="text" th:field="*{username}">
+            </div>
+            <div class="login_txt">
+                <label for="password1">비밀번호</label>
+                <input type="password" th:field="*{password1}">
+            </div>
+            <div class="login_txt">
+                <label for="password2">비밀번호 확인</label>
+                <input type="password" th:field="*{password2}">
+            </div>
+            <div class="login_txt">
+                <label for="email">이메일</label>
+                <input type="email" th:field="*{email}">
+            </div>
+            <div class="login_btn">
+                <button type="submit" class="login_btn_form">회원가입</button>
+            </div>
+        </form>
+    </section>
 </body>
 </html>
