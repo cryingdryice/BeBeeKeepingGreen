@@ -57,12 +57,27 @@ section form .login_txt input{
 	font-weight: bold;
 }
 section form .login_btn{
+	display: flex;
 	text-align: center;
 	justify-content: center;
 	align-items: center;
 	padding: 30px;
 }
 section form .login_btn .login_btn_form{
+	width: 150px;
+    height: 50px;
+    background-color: #FFD95A;
+    border-radius: 10px;
+    border-width: 10px;
+	border: solid;
+	border-color: #4C3D3D;
+
+	color: #4C3D3D;
+	font-weight: bold;
+	font-size: large;
+}
+section form .login_btn .home{
+	align-content: center;
 	width: 150px;
     height: 50px;
     background-color: #FFD95A;
