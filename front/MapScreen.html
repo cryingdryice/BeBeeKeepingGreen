@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeeMap</title>
+    <link rel="stylesheet" href="css/MapScreenStyle.css">
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <h1><a href="HomeScreen.html">BeBee<br>KeepingGreen</a></h1>
+
+            <ul id="gnb">
+                <li><a href="LoginForm.html">Login</a></li>
+                <li><a href="RegisterForm.html">Register</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section>
+        <div class="inner">
+            <div id="map" style="width:800px;height:600px;"></div>
+            
+            <div class="side">
+                <div class="notice-flower">
+                    <h1>주변에 꽃이 많습니다!</h1>
+                    <h1>주변에 꽃이 적습니다!</h1>
+                    <h1>주변에 꽃이 없습니다!</h1>
+                </div>
+                <form id="mappost">
+                    <div class="location_txt">
+                        <h6>밀원식물위치를 입력하고 등록하세요</h6>
+                        <input type="text" value="영남대학교" id="keyword" size="15"> 
+                        <button type="button" class="location_btn" onclick="searchPlaces()">검색</button> 
+                    </div>
+                    <div class="post">
+                        <button type="submit" class="post_btn">
+                            위치 등록
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ab27629cdb25f4ce513e1e57c99da3d&libraries=services"></script>
+
+    <script>
+        document.getElementById('mappost').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+            }
+        })
+
+        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(35.83186130932451, 128.7585415756756), //지도의 중심좌표.
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+
+        var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+        // 장소 검색 객체를 생성합니다
+        var ps = new kakao.maps.services.Places();
+
+        // 키워드 검색을 요청하는 함수입니다
+        function searchPlaces() {
+
+            var keyword = document.getElementById('keyword').value;
+            // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+            ps.keywordSearch( keyword, placesSearchCB); 
+        }
+
+        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+        function placesSearchCB(data, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao.maps.LatLng(data[0].y, data[0].x);
+
+                console.log(data[0].address_name);
+                console.log(data[0].y+""+data[0].x);
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+                });
+                map.setCenter(coords);
+
+                // 좌표 서버에 전송
+
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+                alert('검색 결과가 존재하지 않습니다.');
+                return;
+
+            } else if (status === kakao.maps.services.Status.ERROR) {
+
+                alert('검색 결과 중 오류가 발생했습니다.');
+                return;
+
+            }
+        }
+        
+    </script>
+</body>
+</html>
+
+<!-- data객체 -->
+<!-- [
+    {
+        "address_name": "서울 동작구 사당동 134-1",
+        "category_group_code": "AT4",
+        "category_group_name": "관광명소",
+        "category_name": "여행 > 관광,명소 > 테마거리 > 먹자골목",
+        "distance": "",
+        "id": "2119575152",
+        "phone": "",
+        "place_name": "이수역꼬치거리",
+        "place_url": "http://place.map.kakao.com/2119575152",
+        "road_address_name": "",
+        "x": "126.981953967038",
+        "y": "37.4872392486403"
+    },
+
+   {
+
+         ... 
+
+   }
+
+] -->

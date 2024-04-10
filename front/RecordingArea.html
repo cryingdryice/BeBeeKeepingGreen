@@ -32,11 +32,20 @@
             const container = document.getElementById('input-container');
             const div = document.createElement('div');
             div.className = 'input-box';
+
             const input = document.createElement('textarea');
             div.appendChild(input);
             const post_btn = document.createElement('button');
             post_btn.textContent = "저장";
             div.appendChild(post_btn);
+
+            const delete_btn = document.createElement('button')
+            delete_btn.textContent = '삭제'
+
+            delete_btn.onclick = function(){
+                container.removeChild(div)
+            }
+            div.appendChild(delete_btn)
 
             container.appendChild(div);
         }

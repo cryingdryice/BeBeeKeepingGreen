@@ -65,35 +65,74 @@ section .inner {
 	margin: 0px auto;
 
 	display: flex;
-	justify-content: center;
+	justify-content: left;
 }
-section .inner .wrap {
-	display: flex;
-	width: 400px;
-	height: 400px;
+
+section .inner .side{
+    width: 380px;
+    height: 600px;
+    padding: 10px;
+}
+section .inner .side .notice-flower  h1{
+	text-align: center;
+}
+
+section form .location_txt{
+    width: 100%;
+	margin-top: 100px;
 	text-align: center;
 	justify-content: center;
 	align-items: center;
+	padding: 10px;
 
-	padding: 30px;
-    box-shadow: 10px 10px 30px #4c3d3d73;
+    font-size: 30px;
+    font-weight: bold;
+}
+section form .location_txt input{
+	/* width: 100%; */
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #4C3D3D;
+    border-radius: 4px;
+	font-size: large;
+	font-weight: bold;
+}
+section form .location_txt .location_btn{
+	width: 70px;
+    height: 50px;
+    background-color: #FFD95A;
     border-radius: 10px;
-	border-width: 10px;
+    border-width: 10px;
 	border: solid;
 	border-color: #4C3D3D;
-}
-section .inner .box1{
-	float: left;
-	margin-right: 100px;
-	background-color: #FFD95A;
-}
-section .inner .box2{
-	float: right;
-	margin-left: 100px;
-	
-	background-color: #C07F00;
-}
-section .inner .wrap a{
+
+	color: #4C3D3D;
 	font-weight: bold;
-	font-size: 100px;
+	font-size: large;
+}
+
+section form .post{
+    width: 100%;
+	margin-top: 100px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+section form .post .post_btn{
+	width: 150px;
+    height: 50px;
+    background-color: #FFD95A;
+    border-radius: 10px;
+    border-width: 10px;
+	border: solid;
+	border-color: #4C3D3D;
+
+	color: #4C3D3D;
+	font-weight: bold;
+	font-size: large;
 }

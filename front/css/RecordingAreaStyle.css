@@ -97,11 +97,12 @@ section .inner .input-box textarea {
     color: #4C3D3D; /* 글꼴 색상을 지정합니다 */
 	resize: none; 
 }
+
 section .inner .input-box button {
-    width: 200px; /* 너비를 조정합니다 */
+    width: 100px; /* 너비를 조정합니다 */
 	height: 50px;
     padding: 10px 15px; /* 상하, 좌우 패딩을 조정합니다 */
-	margin: 0px 65px; /* 마진을 조정합니다 */
+	margin: 0px 35px;
     background-color: #C07F00; /* 버튼의 배경색 */
     color: #4C3D3D; /* 글자색 */
 	font-size: large;
