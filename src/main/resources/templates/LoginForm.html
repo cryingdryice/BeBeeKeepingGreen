@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/LoginFormStyle.css">
+    <title>Login</title>
+</head>
+<body>
+    <section>
+        <form>
+            <div class="login_txt">
+                <label for="username">사용자ID</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="login_txt">
+                <label for="password">비밀번호</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    사용자ID 또는 비밀번호를 확인해 주세요.
+                </div>
+            </div>
+            <div class="login_btn">
+                <button type="submit" class="login_btn_form">로그인</button>
+                <div class="home">
+                    <a href="HomeScreen.html">홈으로</a>
+                </div>
+            </div>
+            
+        </form>
+    </section>
+</body>
+</html>

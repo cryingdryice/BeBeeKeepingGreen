@@ -1,0 +1,99 @@
+@charset 'utf-8';
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+
+	color: #4C3D3D;
+	font-family: "arial";
+}
+body{
+	background-color: #FFF7D4;
+}
+ul,
+ol {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+}
+
+/* header */
+header {
+	width: 100%;
+	border-bottom: 3px solid #4C3D3D;
+}
+header .inner {
+	width: 1180px;
+	height: 200px;
+	margin: 0px auto;
+	position: relative; /*자식 absolute 요소의 기준점 설정*/
+}
+header .inner h1 {
+	position: absolute;
+	left: 0px;
+	bottom: 50px;
+	font-size: 50px;
+}
+
+header .inner #gnb {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+header .inner #gnb li {
+	float: left;
+}
+header .inner #gnb li a {
+	display: block; /*인라인 요소는 block설정하여 크기를 조절가능*/
+	font: bold 30px/1 "arial";
+	padding: 20px 40px;
+	transition: all 0.5s;
+}
+header .inner #gnb li a:hover {
+	background: #4C3D3D;
+	color: #FFF7D4;
+}
+
+/* section */
+section {
+	width: 100%;
+	padding: 50px 0px;
+}
+section .inner {
+	width: 1180px;
+	margin: 0px auto;
+
+	display: flex;
+	justify-content: center;
+}
+section .inner .wrap {
+	display: flex;
+	width: 400px;
+	height: 400px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+
+	padding: 30px;
+    box-shadow: 10px 10px 30px #4c3d3d73;
+    border-radius: 10px;
+	border-width: 10px;
+	border: solid;
+	border-color: #4C3D3D;
+}
+section .inner .box1{
+	float: left;
+	margin-right: 100px;
+	background-color: #FFD95A;
+}
+section .inner .box2{
+	float: right;
+	margin-left: 100px;
+	
+	background-color: #C07F00;
+}
+section .inner .wrap a{
+	font-weight: bold;
+	font-size: 100px;
+}

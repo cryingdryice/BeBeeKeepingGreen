@@ -1,0 +1,138 @@
+@charset 'utf-8';
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+
+	color: #4C3D3D;
+	font-family: "arial";
+}
+body{
+	background-color: #FFF7D4;
+}
+ul,
+ol {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+}
+
+/* header */
+header {
+	width: 100%;
+	border-bottom: 3px solid #4C3D3D;
+}
+header .inner {
+	width: 1180px;
+	height: 200px;
+	margin: 0px auto;
+	position: relative; /*자식 absolute 요소의 기준점 설정*/
+}
+header .inner h1 {
+	position: absolute;
+	left: 0px;
+	bottom: 50px;
+	font-size: 50px;
+}
+
+header .inner #gnb {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+header .inner #gnb li {
+	float: left;
+}
+header .inner #gnb li a {
+	display: block; /*인라인 요소는 block설정하여 크기를 조절가능*/
+	font: bold 30px/1 "arial";
+	padding: 20px 40px;
+	transition: all 0.5s;
+}
+header .inner #gnb li a:hover {
+	background: #4C3D3D;
+	color: #FFF7D4;
+}
+
+/* section */
+section {
+	width: 100%;
+	padding: 50px 0px;
+}
+section .inner {
+	width: 1180px;
+	margin: 0px auto;
+
+	display: flex;
+	justify-content: left;
+}
+
+section .inner .side{
+    width: 380px;
+    height: 600px;
+    padding: 10px;
+}
+section .inner .side .notice-flower  h1{
+	text-align: center;
+}
+
+section form .location_txt{
+    width: 100%;
+	margin-top: 100px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+section form .location_txt input{
+	/* width: 100%; */
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #4C3D3D;
+    border-radius: 4px;
+	font-size: large;
+	font-weight: bold;
+}
+section form .location_txt .location_btn{
+	width: 70px;
+    height: 50px;
+    background-color: #FFD95A;
+    border-radius: 10px;
+    border-width: 10px;
+	border: solid;
+	border-color: #4C3D3D;
+
+	color: #4C3D3D;
+	font-weight: bold;
+	font-size: large;
+}
+
+section form .post{
+    width: 100%;
+	margin-top: 100px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+section form .post .post_btn{
+	width: 150px;
+    height: 50px;
+    background-color: #FFD95A;
+    border-radius: 10px;
+    border-width: 10px;
+	border: solid;
+	border-color: #4C3D3D;
+
+	color: #4C3D3D;
+	font-weight: bold;
+	font-size: large;
+}
