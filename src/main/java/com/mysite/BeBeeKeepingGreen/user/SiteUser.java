@@ -1,4 +1,4 @@
-package user;
+package com.mysite.BeBeeKeepingGreen.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;

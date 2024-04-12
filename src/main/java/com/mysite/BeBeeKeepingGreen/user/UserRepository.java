@@ -1,4 +1,4 @@
-package user;
+package com.mysite.BeBeeKeepingGreen.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

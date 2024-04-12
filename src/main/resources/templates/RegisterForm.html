@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="css/RegisterFormStyle.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/RegisterFormStyle.css}">
 </head>
 <body>
     <section>
-        <form>
+        <form th:action="@{/user/register}" th:object="${userCreateForm}" method="post">
             <div class="login_txt">
                 <label for="username">사용자ID</label>
-                <input type="text" th:field="*{username}">
+                <input type="text"  th:field="*{username}">
             </div>
             <div class="login_txt">
                 <label for="password1">비밀번호</label>
@@ -25,6 +25,7 @@
                 <label for="location">양봉 위치</label>
                 <input type="text" th:field="*{location}">
             </div>
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="login_btn">
                 <button type="submit" class="login_btn_form">회원가입</button>
                 <div class="home">
