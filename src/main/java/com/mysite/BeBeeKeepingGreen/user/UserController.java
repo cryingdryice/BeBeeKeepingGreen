@@ -2,6 +2,7 @@ package com.mysite.BeBeeKeepingGreen.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +31,24 @@ public class UserController {
 
             return "RegisterForm";
         }
+        // 위치가 올바르지 않을 때 다시시도
+        if(false){
+            
+        }
 
-        // 올바르게 입력했다면 생성
-        userService.create(userCreateForm.getUsername(), userCreateForm.getLocation(), userCreateForm.getPassword1());
+        try {
+            userService.create(userCreateForm.getUsername(),
+                    userCreateForm.getLocation(), userCreateForm.getPassword1());
+        }catch(DataIntegrityViolationException e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+            return "RegisterForm";
+        }catch(Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", e.getMessage());
+            return "RegisterForm";
+        }
+
         return "redirect:/";
     }
 }
