@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="css/MapScreenStyle.css">
 </head>
 <body>
-    <header>
-        <div class="inner">
-            <h1><a href="HomeScreen.html">BeBee<br>KeepingGreen</a></h1>
+<header>
+    <div class="inner">
+        <h1><a th:href="@{/}">BeBee<br>KeepingGreen</a></h1>
 
-            <ul id="gnb">
-                <li><a href="LoginForm.html">Login</a></li>
-                <li><a href="RegisterForm.html">Register</a></li>
-            </ul>
-        </div>
-    </header>
+        <ul id="gnb">
+            <li>
+                <a sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+            </li>
+            <li><a th:href="@{/user/register}">Register</a></li>
+        </ul>
+    </div>
+</header>
 
     <section>
         <div class="inner">

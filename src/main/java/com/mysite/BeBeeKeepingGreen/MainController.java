@@ -18,10 +18,10 @@ public class MainController {
         return "redirect:/home";
     }
 
-    @GetMapping("/RecordingArea.html")
-    public String record() {
-        return "RecordingArea";
-    }
+//    @GetMapping("/RecordingArea.html")
+//    public String record() {
+//        return "RecordingArea";
+//    }
 
     @GetMapping("/MapScreen.html")
     public String map() {
