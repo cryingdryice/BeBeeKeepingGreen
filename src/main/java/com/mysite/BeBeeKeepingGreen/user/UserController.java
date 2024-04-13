@@ -1,6 +1,7 @@
 package com.mysite.BeBeeKeepingGreen.user;
 
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -51,4 +52,10 @@ public class UserController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "LoginForm";
+    }
+    // 로그인의 PostMapping은 스프링시큐리티가 처리해줌!
 }

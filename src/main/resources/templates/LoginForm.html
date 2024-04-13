@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/LoginFormStyle.css">
+    <link rel="stylesheet" th:href="@{/css/LoginFormStyle.css}">
     <title>Login</title>
 </head>
 <body>
     <section>
-        <form>
+        <form th:action="@{/user/login}" method="post">
             <div class="login_txt">
                 <label for="username">사용자ID</label>
                 <input type="text" name="username" id="username">
@@ -25,7 +25,7 @@
             <div class="login_btn">
                 <button type="submit" class="login_btn_form">로그인</button>
                 <div class="home">
-                    <a href="HomeScreen.html">홈으로</a>
+                    <a th:href="@{/}">홈으로</a>
                 </div>
             </div>
             
