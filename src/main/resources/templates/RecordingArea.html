@@ -29,7 +29,7 @@
                         <div class="input-box">
                             <article th:text="${hiveRecord.content}"></article>
                             
-                            <button>삭제</button>
+                            <a href="javascript:void(0);" th:data-uri="@{|/record/list/delete/${hiveRecord.id}|}" class="delete_box" th:text="삭제"></a>
                         </div>
                     </div>
                     <div class="input-box">
@@ -48,10 +48,14 @@
     </section>
 
     <script>
-        function delete_box(element){
-            var inputBox = element.closest('.input-box');
-            inputBox.style.display = 'none';
-        }
+        const delete_elements = document.getElementsByClassName("delete_box");
+        Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
 
     </script>
 </body>

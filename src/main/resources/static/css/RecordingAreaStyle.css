@@ -111,7 +111,22 @@ section .inner .input-box textarea {
 }
 
 
-
+section .inner .input-box a {
+    width: 100px; /* 너비를 조정합니다 */
+	height: 50px;
+    padding: 10px 15px; /* 상하, 좌우 패딩을 조정합니다 */
+	margin: 0px 35px;
+    background-color: #C07F00; /* 버튼의 배경색 */
+    color: #4C3D3D; /* 글자색 */
+	font-size: large;
+	font-weight: bold;
+    border: 3px solid #4C3D3D; /* 테두리 색상을 지정합니다 */
+    border-radius: 4px; /* 테두리 둥근 모서리를 지정합니다 */
+    cursor: pointer; /* 마우스 오버 시 커서 모양 변경 */
+    outline: none; /* 포커스 시 아웃라인 제거 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* 색상과 그림자 변화 애니메이션 */
+}
 section .inner .input-box button {
     width: 100px; /* 너비를 조정합니다 */
 	height: 50px;
