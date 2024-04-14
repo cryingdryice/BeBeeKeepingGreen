@@ -25,11 +25,17 @@
         <div class="inner">
             <form th:action="@{/record/list}" th:object="${recordForm}" method="post">
                 <div id="input-container">
-                    <!-- 박스 생성 로직 -->
                     <div th:each="hiveRecord, iterStat : ${hiveRecordList}">
-                        <div class="input-box" th:text="${hiveRecord.content}"></div>
+                        <div class="input-box">
+                            <article th:text="${hiveRecord.content}"></article>
+                            
+                            <button>삭제</button>
+                        </div>
                     </div>
-                    <div class="adding-btn" onclick="addInput()">+</div>
+                    <div class="input-box">
+                        <textarea name="content"></textarea>
+                        <button>저장</button>
+                    </div>
                 </div>
                 
                 <!-- 에러 메시지 표시 로직 -->
@@ -42,29 +48,11 @@
     </section>
 
     <script>
-        function addInput() {
-            const container = document.getElementById('input-container');
-            const div = document.createElement('div');
-            div.className = 'input-box';
-
-            const input = document.createElement('textarea');
-            input.name = 'content';
-            input.id = 'content';
-            div.appendChild(input);
-            const post_btn = document.createElement('button');
-            post_btn.textContent = "저장";
-            div.appendChild(post_btn);
-
-            const delete_btn = document.createElement('button')
-            delete_btn.textContent = '삭제'
-
-            delete_btn.onclick = function(){
-                container.removeChild(div)
-            }
-            div.appendChild(delete_btn)
-
-            container.appendChild(div);
+        function delete_box(element){
+            var inputBox = element.closest('.input-box');
+            inputBox.style.display = 'none';
         }
+
     </script>
 </body>
 </html>
