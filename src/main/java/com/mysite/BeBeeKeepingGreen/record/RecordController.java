@@ -29,8 +29,9 @@ public class RecordController {
 
     @PreAuthorize("isAuthenticated()") // 로그인해야만 접속가능
     @GetMapping("/list")
-    public String list(Model model, RecordForm recordForm){
-        List<HiveRecord> hiveRecordList = this.recordService.getList();
+    public String list(Model model, RecordForm recordForm, Principal principal){
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        List<HiveRecord> hiveRecordList = this.recordService.getList(siteUser);
         model.addAttribute("hiveRecordList", hiveRecordList);
 
         return "RecordingArea";

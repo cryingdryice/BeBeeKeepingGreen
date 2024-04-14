@@ -13,8 +13,8 @@ public class RecordService {
     @Autowired
     private RecordRepository recordRepository;
 
-    public List<HiveRecord> getList(){
-        return this.recordRepository.findAll();
+    public List<HiveRecord> getList(SiteUser owner){
+        return this.recordRepository.findAllByOwner(owner);
     }
 
     public void create(String content, SiteUser owner){
