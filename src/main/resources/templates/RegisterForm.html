@@ -8,7 +8,7 @@
 </head>
 <body>
     <section>
-        <form th:action="@{/user/register}" th:object="${userCreateForm}" method="post">
+        <form id="userCreateForm" onsubmit="return searchPlaces()" th:action="@{/user/register}" th:object="${userCreateForm}" method="post">
             <div class="login_txt">
                 <label for="username">사용자ID</label>
                 <input type="text"  th:field="*{username}">
@@ -23,16 +23,58 @@
             </div>
             <div class="login_txt">
                 <label for="location">양봉 위치</label>
-                <input type="text" th:field="*{location}">
+                <input type="text" th:field="*{location}" id="keyword">
             </div>
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="login_btn">
-                <button type="submit" class="login_btn_form">회원가입</button>
+                <button type="submit" class="login_btn_form" >회원가입</button>
                 <div class="home">
                     <a th:href="@{/}">홈으로</a>
                 </div>
             </div>
         </form>
     </section>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ab27629cdb25f4ce513e1e57c99da3d&libraries=services"></script>
+
+    <script>
+
+        // 장소 검색 객체를 생성합니다
+        var ps = new kakao.maps.services.Places();
+
+        // 키워드 검색을 요청하는 함수입니다
+        function searchPlaces() {
+
+            var keyword = document.getElementById('keyword').value;
+            // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+            ps.keywordSearch( keyword, placesSearchCB); 
+            return false;
+        }
+
+        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+        function placesSearchCB(data, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao.maps.LatLng(data[0].y, data[0].x);
+
+                console.log(data[0].address_name);
+                console.log(data[0].y+""+data[0].x);
+                document.getElementById('keyword').readOnly = true;
+                document.getElementById('userCreateForm').submit();
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+                alert('위치가 존재하지 않습니다.');
+                document.getElementById('keyword').value = "";
+                return;
+
+            } else if (status === kakao.maps.services.Status.ERROR) {
+
+                alert('위치 등록 중 오류가 발생했습니다.');
+                document.getElementById('keyword').value = "";
+                return;
+
+            }
+        }
+        
+    </script>
 </body>
 </html>

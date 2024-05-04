@@ -39,9 +39,9 @@
                 </div>
                 
                 <!-- 에러 메시지 표시 로직 -->
-                <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-                    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
-                </div>
+<!--                <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">-->
+<!--                    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--                </div>-->
                 
             </form>
         </div>
@@ -50,12 +50,38 @@
     <script>
         const delete_elements = document.getElementsByClassName("delete_box");
         Array.from(delete_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        if(confirm("정말로 삭제하시겠습니까?")) {
-            location.href = this.dataset.uri;
-        };
-    });
-});
+            element.addEventListener('click', function(event) {
+                if (confirm("정말로 삭제하시겠습니까?")) {
+                    // 삭제를 확인한 경우, 해당 링크로 이동
+                    location.href = this.dataset.uri;
+                } else {
+                    // 삭제를 취소한 경우, 기본 동작(링크 이동) 막기
+                    event.preventDefault();
+                }
+            });
+        });
+
+        // 저장 버튼 클릭 시 실행되는 함수
+        function checkAndSubmit() {
+        // textarea의 내용을 가져옴
+            var content = document.querySelector('textarea[name="content"]').value;
+        // 내용이 비어 있는지 확인
+            if (!content.trim()) {
+            // 내용이 비어 있다면 사용자에게 경고 메시지를 표시
+                alert("내용을 입력해주세요.");
+                return false; // 폼 전송을 막음
+            }
+            return true; // 폼을 제출
+        }
+
+        // 저장 버튼 클릭 이벤트에 checkAndSubmit() 함수를 연결
+        document.querySelector('.input-box button').addEventListener('click', function(event) {
+            // checkAndSubmit() 함수 실행
+            if (!checkAndSubmit()) {
+                // checkAndSubmit() 함수가 false를 반환하면, 기본 동작(폼 제출)을 막음
+                event.preventDefault();
+            }
+        });
 
     </script>
 </body>

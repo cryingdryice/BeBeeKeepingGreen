@@ -56,6 +56,6 @@ public class RecordController {
     public String recordDelete(Principal principal, @PathVariable("id") Integer id){
         HiveRecord hiveRecord = this.recordService.getHiveRecord(id);
         this.recordService.delete(hiveRecord);
-        return "redirect:/";
+        return "redirect:/record/list";
     }
 }
