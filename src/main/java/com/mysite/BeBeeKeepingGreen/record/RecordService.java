@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class RecordService {
     @Autowired
-    private RecordRepository recordRepository;
+    private final RecordRepository recordRepository;
 
     public List<HiveRecord> getList(SiteUser owner){
         return this.recordRepository.findAllByOwner(owner);

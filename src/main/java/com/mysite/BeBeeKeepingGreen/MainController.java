@@ -23,8 +23,4 @@ public class MainController {
 //        return "RecordingArea";
 //    }
 
-    @GetMapping("/MapScreen.html")
-    public String map() {
-        return "MapScreen";
-    }
 }

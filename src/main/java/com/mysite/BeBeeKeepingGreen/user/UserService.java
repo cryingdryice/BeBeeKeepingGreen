@@ -31,4 +31,5 @@ public class UserService {
             throw new DataNotFoundException("사용자 찾지 못함");
         }
     }
+
 }

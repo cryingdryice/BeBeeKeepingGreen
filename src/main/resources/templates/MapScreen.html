@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeeMap</title>
-    <link rel="stylesheet" href="css/MapScreenStyle.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/MapScreenStyle.css}">
 </head>
 <body>
 <header>
@@ -31,33 +31,56 @@
                     <h1>주변에 꽃이 적습니다!</h1>
                     <h1>주변에 꽃이 없습니다!</h1>
                 </div>
-                <form id="mappost">
+                <form id="mappost" th:action="@{/map/show}" th:object="${plantForm}" method="post">
                     <div class="location_txt">
                         <h6>밀원식물위치를 입력하고 등록하세요</h6>
-                        <input type="text" value="영남대학교" id="keyword" size="15"> 
+                        <input type="text" value="영남대학교" id="keyword" size="15" name="plantLocation"> 
                         <button type="button" class="location_btn" onclick="searchPlaces()">검색</button> 
                     </div>
                     <div class="post">
-                        <button type="submit" class="post_btn">
-                            위치 등록
+                        <button type="submit" class="post_btn" onclick="checkAndSubmit()">
+                            위치 등록 요청
                         </button>
                     </div>
                 </form>
+
+                <!-- 드롭다운메뉴 -->
+                <div th:if="${isAdmin == 1}" class="dropdown">
+                    <form id="selectedLocationForm" th:action="@{/map/show/ack}" th:object="${plantForm}" method="post">
+                        <select id="waitingListDropdown" name="plantLocation">
+                            <option th:each="item : ${waiting_list}" 
+                                    th:value="${item.plantLocation}" 
+                                    th:text="${item.plantLocation}">
+                            </option>
+                        </select>
+                        <!-- 선택한 메뉴의 값을 서버에 전송하는 버튼 -->
+                        <button type="submit" onclick="submitSelectedLocation()">선택한 위치 전송</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ab27629cdb25f4ce513e1e57c99da3d&libraries=services"></script>
 
-    <script>
+    <script th:inline="javascript">
         document.getElementById('mappost').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
             }
         })
+        var ps = new kakao.maps.services.Places();
+
+        window.onload = function() {
+            initMapShow();
+        };
+        function initMapShow(){
+            var locationText = /*[[${location}]]*/ '영남대학교';
+            ps.keywordSearch( locationText, placesSearchCB);
+        }
 
         var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-        var options = { //지도를 생성할 때 필요한 기본 옵션
+        options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(35.83186130932451, 128.7585415756756), //지도의 중심좌표.
             level: 3 //지도의 레벨(확대, 축소 정도)
         };
@@ -65,11 +88,10 @@
         var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
         // 장소 검색 객체를 생성합니다
-        var ps = new kakao.maps.services.Places();
+        
 
         // 키워드 검색을 요청하는 함수입니다
         function searchPlaces() {
-
             var keyword = document.getElementById('keyword').value;
             // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
             ps.keywordSearch( keyword, placesSearchCB); 
@@ -104,6 +126,37 @@
             }
         }
         
+    </script>
+
+    <script>
+        // 저장 버튼 클릭 시 실행되는 함수
+        function checkAndSubmit() {
+        // textarea의 내용을 가져옴
+            var location = document.querySelector('input[name="plantLocation"]').value;
+            console.log(location);
+        // 내용이 비어 있는지 확인
+            if (!location.trim()) {
+            // 내용이 비어 있다면 사용자에게 경고 메시지를 표시
+                alert("위치를 입력해주세요.");
+                return false; // 폼 전송을 막음
+            }
+            return true; // 폼을 제출
+        }
+
+        // 선택한 메뉴의 값을 서버에 전송하는 함수
+        function submitSelectedLocation() {
+            // 선택한 메뉴의 값을 가져옴
+            var selectedLocation = document.getElementById('waitingListDropdown').value;
+            // 선택한 메뉴의 값을 서버로 전송 (여기서는 간단히 콘솔에 출력)
+            console.log('선택한 위치:', selectedLocation);
+            // 이후에 선택한 위치를 서버로 전송하는 코드를 추가하세요 (예: Ajax를 사용하여 서버에 전송)
+            if (!selectedLocation.trim()) {
+                // 내용이 비어 있다면 사용자에게 경고 메시지를 표시
+                alert("전송할 위치가 없습니다!");
+                return false; // 폼 전송을 막음
+            }
+            return true;
+        }
     </script>
 </body>
 </html>
