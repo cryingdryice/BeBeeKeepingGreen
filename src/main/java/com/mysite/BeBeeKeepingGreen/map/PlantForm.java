@@ -7,5 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PlantForm {
+    private int id;
     private String plantLocation;
+
+    private String xCoordinate;
+    private String yCoordinate;
 }

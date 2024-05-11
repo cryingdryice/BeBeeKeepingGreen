@@ -15,4 +15,6 @@ public interface MapRepository extends JpaRepository<BeePlant, Integer> {
     List<BeePlant> findAllByIsConfirmFalse();
 
     BeePlant findFirstByPlantLocation(String plantLocation);
+    BeePlant findFirstByXAndY(String x, String y);
+    BeePlant findById(int id);
 }

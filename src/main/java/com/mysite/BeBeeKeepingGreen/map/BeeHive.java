@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class BeePlant {
+public class BeeHive {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,6 +18,4 @@ public class BeePlant {
     private String x;
     @Column(nullable = true)
     private String y;
-
-    private boolean isConfirm;
 }

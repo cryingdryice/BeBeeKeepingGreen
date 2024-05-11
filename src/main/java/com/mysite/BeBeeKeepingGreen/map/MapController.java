@@ -34,6 +34,7 @@ public class MapController {
     public String show(Model model, Principal principal){
         List<BeePlant> beePlantList = this.mapService.getConfirmedList();
         model.addAttribute("plant_list", beePlantList);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
@@ -54,7 +55,7 @@ public class MapController {
         if(bindingResult.hasErrors()){
             return "MapScreen";
         }
-        this.mapService.require(plantForm.getPlantLocation());
+        this.mapService.require(plantForm.getPlantLocation(), plantForm.getXCoordinate(), plantForm.getYCoordinate());
 
         return "redirect:/map/show";
     }
@@ -63,12 +64,16 @@ public class MapController {
     @PostMapping("/show/ack")
     public String ackPlant(@Valid PlantForm plantForm, BindingResult bindingResult, Principal principal){
         if(bindingResult.hasErrors()){
-            return "MapScreen";
+            System.out.println("바인딩 에러!!");
+            return "redirect:/map/show";
         }
-        BeePlant beePlant = this.mapService.getPlant(plantForm.getPlantLocation());
-        if(beePlant==null) System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n\naaaaaaaa\n\n");
-        else System.out.println(beePlant.getPlantLocation());
+//        BeePlant beePlant = this.mapService.getPlant(plantForm.getPlantLocation());
+        System.out.println("plantForm: "+plantForm.getId());
+        BeePlant beePlant = this.mapService.getPlant(plantForm.getId());
 
+//        BeePlant beePlant = this.mapService.getPlant(plantForm.getXCoordinate(), plantForm.getYCoordinate());
+
+//        System.out.println("controller: "+plantForm.getXCoordinate()+ plantForm.getYCoordinate());
         this.mapService.ackPlant(beePlant);
 
         return "redirect:/map/show";

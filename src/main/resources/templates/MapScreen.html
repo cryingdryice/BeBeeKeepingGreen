@@ -31,14 +31,16 @@
                     <h1>주변에 꽃이 적습니다!</h1>
                     <h1>주변에 꽃이 없습니다!</h1>
                 </div>
-                <form id="mappost" th:action="@{/map/show}" th:object="${plantForm}" method="post">
+                <form id="mappost" th:action="@{/map/show}" th:object="${plantForm}" method="post" onsubmit="return checkAndSubmit()">
                     <div class="location_txt">
                         <h6>밀원식물위치를 입력하고 등록하세요</h6>
-                        <input type="text" value="영남대학교" id="keyword" size="15" name="plantLocation"> 
-                        <button type="button" class="location_btn" onclick="searchPlaces()">검색</button> 
+                        <input type="text" value="" id="keyword" size="15" name="plantLocation"> 
+                        <button type="button" class="location_btn" onclick="searchPlaces()">검색</button>
+                        <input type="hidden" id="xCoordinate" name="xCoordinate" value="0">
+                        <input type="hidden" id="yCoordinate" name="yCoordinate" value="0">
                     </div>
                     <div class="post">
-                        <button type="submit" class="post_btn" onclick="checkAndSubmit()">
+                        <button type="submit" class="post_btn">
                             위치 등록 요청
                         </button>
                     </div>
@@ -46,15 +48,16 @@
 
                 <!-- 드롭다운메뉴 -->
                 <div th:if="${isAdmin == 1}" class="dropdown">
-                    <form id="selectedLocationForm" th:action="@{/map/show/ack}" th:object="${plantForm}" method="post">
-                        <select id="waitingListDropdown" name="plantLocation">
+                    <form id="selectedLocationForm" th:action="@{/map/show/ack}" th:object="${plantForm}" method="post" onsubmit="return submitSelectedLocation()">
+                        
+                        <select id="waitingListDropdown" name="id">
                             <option th:each="item : ${waiting_list}" 
-                                    th:value="${item.plantLocation}" 
+                                    th:value="${item.id}" 
                                     th:text="${item.plantLocation}">
                             </option>
                         </select>
                         <!-- 선택한 메뉴의 값을 서버에 전송하는 버튼 -->
-                        <button type="submit" onclick="submitSelectedLocation()">선택한 위치 전송</button>
+                        <button type="submit">선택한 위치 전송</button>
                     </form>
                 </div>
             </div>
@@ -69,16 +72,8 @@
                 event.preventDefault();
             }
         })
+
         var ps = new kakao.maps.services.Places();
-
-        window.onload = function() {
-            initMapShow();
-        };
-        function initMapShow(){
-            var locationText = /*[[${location}]]*/ '영남대학교';
-            ps.keywordSearch( locationText, placesSearchCB);
-        }
-
         var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
         options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(35.83186130932451, 128.7585415756756), //지도의 중심좌표.
@@ -87,8 +82,40 @@
 
         var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-        // 장소 검색 객체를 생성합니다
-        
+        // 마커 이미지의 이미지 주소입니다
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(24, 35); 
+    
+         // 마커 이미지를 생성합니다    
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+        window.onload = function() {
+            initMapShow();
+        };
+        function initMapShow(){
+            var locationText = /*[[${location}]]*/ '영남대학교';
+            ps.keywordSearch( locationText, placesSearchCB);
+
+            var plantList = /*[[${plant_list}]]*/ '[]';
+            
+            console.log(plantList);
+            plantList.forEach(plant => {
+                let coords = new kakao.maps.LatLng(plant.y, plant.x);
+
+                let marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords,
+                    title : '밀원식물', // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                    image : markerImage // 마커 이미지 
+                });
+                console.log(plant.plantLocation);
+                console.log(plant.x); // 객체의 속성에 직접 접근
+                console.log(plant.y); // 객체의 속성에 직접 접근
+            });
+           
+        }
 
         // 키워드 검색을 요청하는 함수입니다
         function searchPlaces() {
@@ -106,12 +133,16 @@
                 console.log(data[0].y+""+data[0].x);
                 // 결과값으로 받은 위치를 마커로 표시합니다
                 var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
+                    map: map,
+                    position: coords
                 });
                 map.setCenter(coords);
 
                 // 좌표 서버에 전송
+                document.getElementById("keyword").value = data[0].address_name;
+                // Assign coordinates to hidden fields
+                document.getElementById("xCoordinate").value = data[0].x;
+                document.getElementById("yCoordinate").value = data[0].y;
 
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
