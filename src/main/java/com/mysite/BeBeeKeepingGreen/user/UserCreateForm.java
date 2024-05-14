@@ -20,4 +20,7 @@ public class UserCreateForm {
 
     @NotEmpty(message = "위치는 필수항목입니다.")
     private String location;
+
+    private String x;
+    private String y;
 }

@@ -27,9 +27,11 @@
             
             <div class="side">
                 <div class="notice-flower">
-                    <h1>주변에 꽃이 많습니다!</h1>
-                    <h1>주변에 꽃이 적습니다!</h1>
-                    <h1>주변에 꽃이 없습니다!</h1>
+                    <h1 th:if="${density >= 2}">주변에 꽃이 많습니다!</h1>
+                    <h1 th:if="${density == 1}">주변에 꽃이 적습니다!</h1>
+                    <h1 th:if="${density == 0}">주변에 꽃이 없습니다!</h1>
+                    <!-- <h1 th:text="${density}"></h1> -->
+
                 </div>
                 <form id="mappost" th:action="@{/map/show}" th:object="${plantForm}" method="post" onsubmit="return checkAndSubmit()">
                     <div class="location_txt">
@@ -83,13 +85,16 @@
         var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
         // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        // var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var plantImageSrc = "https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_47-64.png";
+        var hiveImageSrc = "https://cdn1.iconfinder.com/data/icons/nature-farming-and-ecology/135/43-64.png";
 
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize = new kakao.maps.Size(24, 35); 
+        var imageSize = new kakao.maps.Size(40, 40); 
     
          // 마커 이미지를 생성합니다    
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        var plantMarkerImage = new kakao.maps.MarkerImage(plantImageSrc, imageSize);
+        var hiveMarkerImage = new kakao.maps.MarkerImage(hiveImageSrc, imageSize);
 
         window.onload = function() {
             initMapShow();
@@ -99,8 +104,10 @@
             ps.keywordSearch( locationText, placesSearchCB);
 
             var plantList = /*[[${plant_list}]]*/ '[]';
+            var userList = /*[[${userList}]]*/ '[]';
             
             console.log(plantList);
+            console.log(userList);
             plantList.forEach(plant => {
                 let coords = new kakao.maps.LatLng(plant.y, plant.x);
 
@@ -108,11 +115,25 @@
                     map: map,
                     position: coords,
                     title : '밀원식물', // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                    image : markerImage // 마커 이미지 
+                    image : plantMarkerImage // 마커 이미지 
                 });
                 console.log(plant.plantLocation);
                 console.log(plant.x); // 객체의 속성에 직접 접근
                 console.log(plant.y); // 객체의 속성에 직접 접근
+            });
+
+            userList.forEach(user => {
+                let coords = new kakao.maps.LatLng(user.y, user.x);
+
+                let marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords,
+                    title : '양봉위치', // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                    image : hiveMarkerImage // 마커 이미지 
+                });
+                // console.log(user.plantLocation);
+                console.log(user.x); // 객체의 속성에 직접 접근
+                console.log(user.y); // 객체의 속성에 직접 접근
             });
            
         }
@@ -137,6 +158,16 @@
                     position: coords
                 });
                 map.setCenter(coords);
+
+                // 맵에 그릴 반경 3km원
+                var circle = new kakao.maps.Circle({
+                    center : coords,  // 원의 중심좌표 입니다 
+                    radius: 3000, // 미터 단위의 원의 반지름입니다 
+                    strokeWeight: 5, // 선의 두께입니다 
+                    strokeColor: '#75B8FA', // 선의 색깔입니다
+                    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다 
+                }); 
+                circle.setMap(map);
 
                 // 좌표 서버에 전송
                 document.getElementById("keyword").value = data[0].address_name;

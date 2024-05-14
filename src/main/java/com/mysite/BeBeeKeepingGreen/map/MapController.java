@@ -24,6 +24,7 @@ import java.util.List;
 @RequestMapping("/map")
 public class MapController {
     private final MapService mapService;
+    private final UserService userService;
     @GetMapping("")
     public String map(){
         return "redirect:/map/show";
@@ -34,6 +35,12 @@ public class MapController {
     public String show(Model model, Principal principal){
         List<BeePlant> beePlantList = this.mapService.getConfirmedList();
         model.addAttribute("plant_list", beePlantList);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        model.addAttribute("location", siteUser.getLocation());
+        List<SiteUser> userList = this.userService.getAllUser();
+        model.addAttribute("userList", userList);
+        int density = this.mapService.plantDensity(siteUser);
+        model.addAttribute("density", density);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getAuthorities().stream()
@@ -67,13 +74,11 @@ public class MapController {
             System.out.println("바인딩 에러!!");
             return "redirect:/map/show";
         }
-//        BeePlant beePlant = this.mapService.getPlant(plantForm.getPlantLocation());
+
         System.out.println("plantForm: "+plantForm.getId());
         BeePlant beePlant = this.mapService.getPlant(plantForm.getId());
 
-//        BeePlant beePlant = this.mapService.getPlant(plantForm.getXCoordinate(), plantForm.getYCoordinate());
 
-//        System.out.println("controller: "+plantForm.getXCoordinate()+ plantForm.getYCoordinate());
         this.mapService.ackPlant(beePlant);
 
         return "redirect:/map/show";

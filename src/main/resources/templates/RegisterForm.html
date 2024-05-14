@@ -25,6 +25,8 @@
                 <label for="location">양봉 위치</label>
                 <input type="text" th:field="*{location}" id="keyword">
             </div>
+            <input type="hidden" id="xCoordinate" name="x" value="0">
+            <input type="hidden" id="yCoordinate" name="y" value="0">
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="login_btn">
                 <button type="submit" class="login_btn_form" >회원가입</button>
@@ -58,6 +60,8 @@
 
                 console.log(data[0].address_name);
                 console.log(data[0].y+""+data[0].x);
+                document.getElementById("xCoordinate").value = data[0].x;
+                document.getElementById("yCoordinate").value = data[0].y;
                 document.getElementById('keyword').readOnly = true;
                 document.getElementById('userCreateForm').submit();
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {

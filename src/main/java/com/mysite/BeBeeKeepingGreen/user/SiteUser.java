@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 // 유저 회원정보 엔티티
 @Getter
@@ -25,5 +24,8 @@ public class SiteUser {
     private String password;
 
     private String location;
+
+    private String x;
+    private String y;
 
 }
