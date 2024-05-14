@@ -1,0 +1,30 @@
+#admin
+id: admin
+pw: admin1
+location: 영남대학교
+
+------------------------------------------
+#1
+id: 김영남
+pw: 김영남1
+location: 영남대학교 it관
+
+#2
+id: 박지원
+pw: 박지원1
+location: 대구스타디움
+
+#3
+id: 스타벅스
+pw: 스타벅스1
+lcoation: 영남대학교 스타벅스
+
+#4
+id: 반월당
+pw: 반월당1
+location: 대구 반월당역
+
+#5
+id: 엑스포
+pw: 엑스포1
+location: 대구 엑스포

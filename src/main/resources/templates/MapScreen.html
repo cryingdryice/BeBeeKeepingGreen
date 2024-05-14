@@ -96,6 +96,9 @@
         var plantMarkerImage = new kakao.maps.MarkerImage(plantImageSrc, imageSize);
         var hiveMarkerImage = new kakao.maps.MarkerImage(hiveImageSrc, imageSize);
 
+        // 0이면 실행 1이면 더이상 원그리기 x
+        var c = 0;
+
         window.onload = function() {
             initMapShow();
         };
@@ -167,7 +170,10 @@
                     strokeColor: '#75B8FA', // 선의 색깔입니다
                     strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다 
                 }); 
-                circle.setMap(map);
+                if(c == 0){
+                    circle.setMap(map);
+                    c = 1;
+                }
 
                 // 좌표 서버에 전송
                 document.getElementById("keyword").value = data[0].address_name;
