@@ -1,30 +1,10 @@
-@charset 'utf-8';
-* {
-	margin: 0px;
-	padding: 0px;
-	box-sizing: border-box;
-
-	color: #4C3D3D;
-	font-family: "arial";
-}
-body{
-	background-color: #FFF7D4;
-}
-ul,
-ol {
-	list-style: none;
-}
-a {
-	text-decoration: none;
-}
-
 section{
     display: flex;
     width: 500px;
     height: 700px;
     padding: 30px;
 
-    background-color: #fff;
+    background-color: rgb(255, 247, 212, 0.3);
     margin: 50px auto;
 	margin-top: 100px;
     box-shadow: 10px 10px 30px #4c3d3d73;
@@ -63,33 +43,7 @@ section form .login_btn{
 	align-items: center;
 	padding: 30px;
 }
-section form .login_btn .login_btn_form{
-	width: 150px;
-    height: 50px;
-    background-color: #FFD95A;
-    border-radius: 10px;
-    border-width: 10px;
-	border: solid;
-	border-color: #4C3D3D;
 
-	color: #4C3D3D;
-	font-weight: bold;
-	font-size: large;
-}
-section form .login_btn .home{
-	align-content: center;
-	width: 150px;
-    height: 50px;
-    background-color: #FFD95A;
-    border-radius: 10px;
-    border-width: 10px;
-	border: solid;
-	border-color: #4C3D3D;
-
-	color: #4C3D3D;
-	font-weight: bold;
-	font-size: large;
-}
 section form .alert-danger{
 	color: red;
 	font-weight: bold;

@@ -64,7 +64,7 @@ section form .login_btn{
 	align-items: center;
 	padding: 30px;
 }
-section form .login_btn .login_btn_form{
+/* section form .login_btn .login_btn_form{
 	width: 150px;
     height: 50px;
     background-color: #FFD95A;
@@ -76,7 +76,7 @@ section form .login_btn .login_btn_form{
 	color: #4C3D3D;
 	font-weight: bold;
 	font-size: large;
-}
+} */
 section form .login_btn .home{
 	align-content: center;
 	width: 150px;
@@ -96,3 +96,38 @@ section form .alert-danger{
 	font-weight: bold;
 	text-align: center;
 }
+
+
+
+section form .login_btn .login_btn_form {
+	width: 150px;
+    height: 50px;
+    background-color: #FFD95A; /* 꿀 색상 */
+    color: #4C3D3D;
+	font-weight: bold;
+	font-size: large;
+
+    cursor: pointer;
+	border: 3px solid #4C3D3D;
+    border-radius: 10px; /* 버튼 모서리 둥글게 */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  /* 버튼 호버 효과 */
+  section form .login_btn .login_btn_form:hover {
+    background-color: #FFDF7E; /* 호버 시 더 밝은 꿀 색상 */
+    transform: translateY(-2px); /* 위로 약간 이동하여 눌린 효과 */
+  }
+
+  /* 애니메이션 키 프레임 */
+  @keyframes honeyAnimation {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* 버튼 클릭 효과 */
+  section form .login_btn .login_btn_form:active {
+    animation: honeyAnimation 0.3s ease; /* 클릭 시 애니메이션 적용 */
+  }
