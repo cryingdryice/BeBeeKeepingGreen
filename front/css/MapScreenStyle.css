@@ -67,16 +67,5 @@ select {
 	border: 3px solid #4C3D3D;
     border-radius: 10px; /* 버튼 모서리 둥글게 */
 }
-  
-  /* 드롭다운 메뉴 스타일 */
-  /* .custom-dropdown select {
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	background-color: white;
-	border: 1px solid #ccc;
-	padding: 10px;
-	width: 100%;
-	cursor: pointer;
-  } */
+
   
