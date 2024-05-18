@@ -38,7 +38,8 @@
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="login_btn">
                 <button type="submit" class="honey-btn">회원가입</button>
-                <button type="button" class="honey-btn"><a th:href="@{/}">홈으로</a></button>
+                <!-- <button type="button" class="honey-btn"><a th:href="@{/}">홈으로</a></button> -->
+                <a th:href="@{/}" class="home-btn">홈으로</a>
             </div>
         </form>
     </section>
