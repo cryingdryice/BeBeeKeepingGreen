@@ -13,4 +13,21 @@ html, css, js로 만든 웹문서로 구현한다.
 spring boot를 이용하여 java파일로 구현한다.
 
 # DataBase
-미정
+h2
+
+#실행방법
+프로젝트 폴더를 intelliJ로 실행(또는 intelliJ에서 Open->프로젝트 파일)
+
+처음 실행시 gradle파일이 로딩되는데 시간이 걸립니다. 하단바의 프로그레스바가 사라질때까지 기다려주세요!
+
+src/main/java/com/mysite/BeBeeKeepingGreen/BeBeeKeepingGreenApplication.java 경로의 BeBeeKeepingGreenApplication 클래스가 메인 실행 클래스 입니다. 이 클래스를 run해 주세요!
+
+실행후 잠시 기다려주세요...
+웹브라우저에서 'locahost:8080' 으로 접속해주세요.
+end
+
+++
+관리자 계정이 이미 존재합니다
+id: admin     pw: admin1  로 로그인하시면 관리자로 로그인됩니다!
+
+
