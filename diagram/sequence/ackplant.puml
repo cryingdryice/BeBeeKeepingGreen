@@ -1,0 +1,26 @@
+@startuml
+
+actor Admin
+participant "MapUI" as MapUI
+participant "MapService" as MapService
+participant "MapRepository" as MapRepository
+participant "BeePlant" as BeePlant
+
+Admin -> MapUI: 1. plant 승인 요청\n (plantId: id)
+activate MapUI
+MapUI -> MapService: 2. 승인 요청\n (plantId: id)
+activate MapService
+MapService -> MapRepository: 3. 승인 처리\n (plantId: id)
+activate MapRepository
+MapRepository -> BeePlant: 4. Beeplant의 isconfirm 업데이트\n (plantId: id, isconfirm: true)
+activate BeePlant
+BeePlant --> MapRepository: 5. 업데이트 결과 반환
+deactivate BeePlant
+MapRepository --> MapService: 6. 처리 결과 반환
+deactivate MapRepository
+MapService --> MapUI: 7. 처리 결과 반환
+deactivate MapService
+MapUI --> Admin: 8. 승인 완료 메시지 반환
+deactivate MapUI
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+
+actor User
+participant "UserController" as UserController
+participant "UserService" as UserService
+participant "UserRepository" as UserRepository
+
+User -> UserController: 1. 사용자 회원가입 요청\n (username: id, password: ****, \nlocation: hiveLocation)
+activate UserController
+UserController -> UserService: 2. 회원가입 요청\n (username: id, password: ****, \nlocation: hiveLocation)
+activate UserService
+UserService -> UserService: 3. 입력값 유효성 검사
+alt 입력값이 유효하지 않음
+    UserService --> UserController: 4. 입력값이 유효하지 않음 메시지 반환
+    deactivate UserService
+else
+    UserService -> UserRepository: 5. 사용자 중복 확인\n (username: id)
+    activate UserRepository
+    alt 사용자 중복 없음
+        UserRepository --> UserService: 6. 중복 없음
+        deactivate UserRepository
+        UserService -> UserRepository: 7. 사용자 회원가입\n (username: id, password: ****, \nlocation: hiveLocation)
+        activate UserRepository
+        UserRepository --> UserService: 8. 회원가입 결과 반환
+        deactivate UserRepository
+        UserService --> UserController: 9. 회원가입 성공
+    else 사용자 중복 발생
+        UserRepository --> UserService: 6. 중복 발생
+        deactivate UserRepository
+        UserService --> UserController: 10. 회원가입 실패
+    end
+end
+deactivate UserService
+deactivate UserController
+
+@enduml

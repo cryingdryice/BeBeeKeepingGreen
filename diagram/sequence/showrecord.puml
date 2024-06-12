@@ -1,0 +1,25 @@
+@startuml
+
+actor User
+participant "RecordUI" as RecordUI
+participant "RecordController" as RecordController
+participant "RecordService" as RecordService
+participant "RecordRepository" as RecordRepository
+
+User -> RecordUI: HiveRecord 조회 요청
+activate RecordUI
+RecordUI -> RecordController: 조회 요청
+activate RecordController
+RecordController -> RecordService: 조회 요청
+activate RecordService
+RecordService -> RecordRepository: HiveRecord 조회
+activate RecordRepository
+RecordRepository --> RecordService: 조회 결과 반환
+deactivate RecordRepository
+RecordService --> RecordController: 조회 결과 반환
+deactivate RecordService
+RecordController --> RecordUI: 조회 결과 반환
+deactivate RecordController
+deactivate RecordUI
+
+@enduml

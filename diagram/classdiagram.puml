@@ -1,0 +1,168 @@
+@startuml
+interface BeBeeKeepingGreen.record.RecordRepository {
+~ List<HiveRecord> findAllByOwner(SiteUser)
+}
+
+class BeBeeKeepingGreen.user.UserCreateForm {
+- String username
+- String password1
+- String password2
+- String location
+- String x
+- String y
+}
+
+class BeBeeKeepingGreen.MainController {
++ String home()
++ String root()
+}
+
+class BeBeeKeepingGreen.record.RecordController {
+- RecordService recordService
+- UserService userService
++ String record()
++ String list(Model,RecordForm,Principal)
++ String recordCreate(RecordForm,BindingResult,Principal)
++ String recordDelete(Principal,Integer)
+}
+
+
+interface BeBeeKeepingGreen.user.UserRepository {
+~ Optional<SiteUser> findByusername(String)
+~ List<SiteUser> findAllBy()
+}
+
+class BeBeeKeepingGreen.record.RecordService {
+- RecordRepository recordRepository
++ List<HiveRecord> getList(SiteUser)
++ void create(String,SiteUser)
++ void delete(HiveRecord)
++ HiveRecord getHiveRecord(Integer)
+}
+
+
+class BeBeeKeepingGreen.map.BeePlant {
+- int id
+- String plantLocation
+- String x
+- String y
+- boolean isConfirm
+}
+
+class BeBeeKeepingGreen.user.UserController {
+- UserService userService
++ String register(UserCreateForm)
++ String register(UserCreateForm,BindingResult)
++ String login()
+}
+
+
+class BeBeeKeepingGreen.map.PlantForm {
+- int id
+- String plantLocation
+- String xCoordinate
+- String yCoordinate
+}
+
+class BeBeeKeepingGreen.SecurityConfig {
+~ SecurityFilterChain filterChain(HttpSecurity)
+~ PasswordEncoder passwordEncoder()
+~ AuthenticationManager authenticationManager(AuthenticationConfiguration)
+}
+
+class BeBeeKeepingGreen.record.RecordForm {
+- String content
+}
+
+class BeBeeKeepingGreen.user.SiteUser {
+- Long id
+- String username
+- String password
+- String location
+- String x
+- String y
+}
+
+class BeBeeKeepingGreen.user.UserSecurityService {
+- UserRepository userRepository
++ UserDetails loadUserByUsername(String)
+}
+
+
+class BeBeeKeepingGreen.record.HiveRecord {
+- int id
+- SiteUser owner
+- String content
+}
+
+interface BeBeeKeepingGreen.map.MapRepository {
+~ List<BeePlant> findAll()
+~ List<BeePlant> findAllByIsConfirmTrue()
+~ List<BeePlant> findAllByIsConfirmFalse()
+~ BeePlant findFirstByPlantLocation(String)
+~ BeePlant findFirstByXAndY(String,String)
+~ BeePlant findById(int)
+}
+
+class BeBeeKeepingGreen.map.MapService {
+- MapRepository mapRepository
++ List<BeePlant> getConfirmedList()
++ List<BeePlant> getWaitingList()
++ BeePlant getPlant(int)
++ void ackPlant(BeePlant)
++ void require(String,String,String)
++ int plantDensity(SiteUser)
++ double distance(double,double,double,double)
+}
+
+
+class BeBeeKeepingGreen.map.MapController {
+- MapService mapService
+- UserService userService
++ String map()
++ String show(Model,Principal)
++ String requirePlant(PlantForm,BindingResult,Principal)
++ String ackPlant(PlantForm,BindingResult,Principal)
+}
+
+
+enum BeBeeKeepingGreen.user.UserRole {
++  ADMIN
++  USER
+- String value
+}
+
+class BeBeeKeepingGreen.user.UserService {
+- UserRepository userRepository
+- PasswordEncoder passwordEncoder
++ SiteUser create(String,String,String,String,String)
++ SiteUser getUser(String)
++ List<SiteUser> getAllUser()
++ List<String> getAllUserLocations()
+}
+
+BeBeeKeepingGreen.user.UserController o-- BeBeeKeepingGreen.user.UserService
+BeBeeKeepingGreen.user.UserService ..> BeBeeKeepingGreen.user.UserRepository
+BeBeeKeepingGreen.user.UserSecurityService ..> BeBeeKeepingGreen.user.UserRepository
+BeBeeKeepingGreen.user.SiteUser ..> BeBeeKeepingGreen.user.UserRepository
+BeBeeKeepingGreen.user.UserCreateForm <.. BeBeeKeepingGreen.user.UserController
+BeBeeKeepingGreen.user.UserRole <.. BeBeeKeepingGreen.user.UserRepository
+
+BeBeeKeepingGreen.record.RecordController o-- BeBeeKeepingGreen.record.RecordService
+BeBeeKeepingGreen.record.RecordController o-- BeBeeKeepingGreen.user.UserService
+BeBeeKeepingGreen.record.RecordService ..> BeBeeKeepingGreen.record.RecordRepository
+BeBeeKeepingGreen.record.HiveRecord ..> BeBeeKeepingGreen.record.RecordRepository
+BeBeeKeepingGreen.record.RecordForm <.. BeBeeKeepingGreen.record.RecordController
+
+BeBeeKeepingGreen.map.MapController o-- BeBeeKeepingGreen.map.MapService
+BeBeeKeepingGreen.map.MapController o-- BeBeeKeepingGreen.user.UserService
+BeBeeKeepingGreen.map.MapService ..> BeBeeKeepingGreen.map.MapRepository
+BeBeeKeepingGreen.map.BeePlant ..> BeBeeKeepingGreen.map.MapRepository
+BeBeeKeepingGreen.map.PlantForm <.. BeBeeKeepingGreen.map.MapController
+
+'BeBeeKeepingGreen.SecurityConfig -- BeBeeKeepingGreen.MainController #white
+BeBeeKeepingGreen.MainController -- BeBeeKeepingGreen.map #white
+BeBeeKeepingGreen.user.UserSecurityService -- BeBeeKeepingGreen.user.UserRole #white
+
+
+@enduml

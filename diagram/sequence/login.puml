@@ -1,0 +1,32 @@
+@startuml
+
+actor User
+actor Admin
+participant "UserController" as UserController
+participant "UserService" as UserService
+participant "UserRepository" as UserRepository
+participant "UserSecurityService" as UserSecurityService
+
+User -> UserController: 1. 로그인 요청\n (username: id, password: ****)
+activate UserController
+UserController -> UserService: 2. 로그인 요청\n (username: id, password: ****)
+activate UserService
+UserService -> UserRepository: 3. 사용자 조회\n (username: id)
+activate UserRepository
+alt 사용자 발견
+    UserRepository --> UserService: 4. 사용자 정보 반환
+    deactivate UserRepository
+    UserService -> UserSecurityService: 5. 사용자 보안 확인\n (username: id)
+    activate UserSecurityService
+    UserSecurityService --> UserService: 6. 사용자 인증 결과 반환
+    deactivate UserSecurityService
+    UserService --> UserController: 7. 로그인 성공
+else 사용자 없음
+    UserRepository --> UserService: 4. 사용자 없음
+    deactivate UserRepository
+    UserService --> UserController: 8. 로그인 실패
+end
+deactivate UserService
+deactivate UserController
+
+@enduml

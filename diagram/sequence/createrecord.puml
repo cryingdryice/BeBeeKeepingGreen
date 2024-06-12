@@ -1,0 +1,33 @@
+@startuml
+
+actor User
+participant "RecordUI" as RecordUI
+participant "RecordController" as RecordController
+participant "RecordService" as RecordService
+participant "RecordRepository" as RecordRepository
+
+User -> RecordUI: 1. HiveRecord 생성 요청
+activate RecordUI
+RecordUI -> RecordController: 2. 생성 요청
+activate RecordController
+RecordController -> RecordService: 3. 생성 요청
+activate RecordService
+RecordService -> RecordService: 4. 입력값 유효성 검사
+alt 입력값이 유효하지 않음
+    RecordService --> RecordController: 5. 입력값이 유효하지 않음 메시지 반환
+    deactivate RecordService
+    RecordController --> RecordUI: 6. 입력값이 유효하지 않음 메시지 반환
+    deactivate RecordController
+else
+    RecordService -> RecordRepository: 5. HiveRecord 생성
+    activate RecordRepository
+    RecordRepository --> RecordService: 6. 생성 결과 반환
+    deactivate RecordRepository
+    RecordService --> RecordController: 7. 생성 결과 반환
+    deactivate RecordService
+    RecordController --> RecordUI: 8. 생성 결과 반환
+    deactivate RecordController
+end
+deactivate RecordUI
+
+@enduml

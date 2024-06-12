@@ -1,0 +1,34 @@
+@startuml
+
+actor User
+participant "MapController" as MapController
+participant "MapService" as MapService
+participant "MapRepository" as MapRepository
+participant "KakaoMaps" as KakaoMaps
+
+User -> MapController: 1. 식물 검색 요청\n (검색어: plant)
+activate MapController
+MapController -> MapService: 2. 식물 검색 요청\n (검색어: plant)
+activate MapService
+MapService -> KakaoMaps: 3. 식물 위치 확인\n (검색어: plant)
+activate KakaoMaps
+KakaoMaps --> MapService: 4. 위치 정보 반환
+deactivate KakaoMaps
+MapService --> MapController: 5. 위치 정보 반환
+deactivate MapService
+MapController -> User: 6. 위치 정보 반환
+deactivate MapController
+User -> MapController: 7. 위치 등록 요청\n (검색어: plant, 위치 정보: location)
+activate MapController
+MapController -> MapService: 8. 위치 등록 요청\n (검색어: plant, 위치 정보: location)
+activate MapService
+MapService -> MapRepository: 9. 위치 등록\n (검색어: plant, 위치 정보: location)
+activate MapRepository
+MapRepository --> MapService: 10. 위치 등록 결과 반환
+deactivate MapRepository
+MapService --> MapController: 11. 위치 등록 결과 반환
+deactivate MapService
+MapController -> User: 12. 위치 등록 결과 반환
+deactivate MapController
+
+@enduml
