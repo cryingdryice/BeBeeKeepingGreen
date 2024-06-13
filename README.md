@@ -15,15 +15,24 @@ spring boot를 이용하여 java파일로 구현한다.
 # DataBase
 h2
 
-#실행방법
-프로젝트 폴더를 intelliJ로 실행(또는 intelliJ에서 Open->프로젝트 파일)
+# 실행방법
 
-처음 실행시 gradle파일이 로딩되는데 시간이 걸립니다. 하단바의 프로그레스바가 사라질때까지 기다려주세요!
+윈도우 환경에서 실행되어야 합니다
+해당 폴더안의 '실행용' 폴더로 이동
+'더블클릭 해 실행해주세요'파일 실행
+웹브라우저 실행 우 주소창에 http://localhost:8080으로 접속 -완-
+종료하실경우 켜져있는 터미널창에서 ^C 로 종료할 수 있습니다.
 
-src/main/java/com/mysite/BeBeeKeepingGreen/BeBeeKeepingGreenApplication.java 경로의 BeBeeKeepingGreenApplication 클래스가 메인 실행 클래스 입니다. 이 클래스를 run해 주세요!
 
-실행후 잠시 기다려주세요...
-웹브라우저에서 'locahost:8080' 으로 접속해주세요.
+admin 계정과 사용자 계정을 이미 생성해 놓았습니다!
+
+<admin>
+id: admin
+pw: admin1
+
+<user>
+id: 박지원
+pw: 박지원1
 end
 
 ++
